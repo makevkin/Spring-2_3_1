@@ -24,19 +24,22 @@ public class UserController {
         //model.addAttribute("allUsers", userService.getAllUsers());
         return "showAll";
     }
+
     @GetMapping("/add") // форма для добавления нового пользователя
     public String addUserForm(@ModelAttribute("newUser") User user) {
         return "newUser";
     }
+
     @PostMapping("/add") // добавление нового пользователя
     public String addUser(@ModelAttribute("newUser") User user) {
         userService.addUser(user);
         return "redirect:/";
     }
+
     @DeleteMapping("/delete") // удаление пользователя по id
     public String deleteUser(@RequestParam("userId") int id) {
-         userService.deleteUser(id);
-         return "redirect:/";
+        userService.deleteUser(id);
+        return "redirect:/";
     }
 
     @GetMapping("/edit")
@@ -51,35 +54,6 @@ public class UserController {
         userService.updateUser(user);
         return "redirect:/";
     }
-
-
-
-//    }
-//
-//    }
-//    @GetMapping("/new") //форма для ввода данных нового пользователя
-//    public String newUser(@ModelAttribute("person")Person person) {
-//        return "people/new";
-//    }
-//    @PostMapping() // добавление нового пользователя
-//    public String creat(@ModelAttribute("person") Person person) {
-//        personDao.save(person);
-//        return "redirect:/people"; // перенаправление на страницу со списком пользователей
-//    }
-//    @GetMapping("/{id}/edit")  // редактирование пользователя по id
-//    public  String edit(Model model, @PathVariable("id") int id) { // получение id из параметров
-//        model.addAttribute("person", personDao.show(id));
-//        return "people/edit";
-//    }
-//    @PatchMapping("/{id}")  // обнавление пользователя
-//    public String update(@ModelAttribute("person") Person person, @PathVariable("id") int id) {
-//        personDao.update(id, person);
-//        return "redirect:/people";
-//    }
-//
-//    @DeleteMapping("/{id}") // удаление пользователя
-//    public String delete(@PathVariable("id") int id) {
-//        personDao.delete(id);
-//        return "/people";
-//    }
 }
+
+
