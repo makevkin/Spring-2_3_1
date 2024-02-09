@@ -6,6 +6,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
+import org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
@@ -25,8 +26,12 @@ import java.util.Properties;
 @EnableWebMvc
 public class AppConfig {
 
-   @Autowired
+
    private Environment env;
+   @Autowired
+   public AppConfig(Environment env) {
+      this.env = env;
+   }
 
    @Bean
    public DataSource getDataSource() {
@@ -41,9 +46,9 @@ public class AppConfig {
    @Bean
    public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
       LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
+      em.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
       em.setDataSource(getDataSource());
       em.setPackagesToScan("web.model");
-      em.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
       em.setJpaProperties(addProperties());
       return em;
    }
@@ -63,5 +68,9 @@ public class AppConfig {
       JpaTransactionManager transactionManager = new JpaTransactionManager();
       transactionManager.setEntityManagerFactory(entityManagerFactory().getObject());
       return transactionManager;
+   }
+   @Bean
+   public PersistenceExceptionTranslationPostProcessor exceptionTranslation(){
+      return new PersistenceExceptionTranslationPostProcessor();
    }
 }

@@ -32,4 +32,10 @@ public class UserDaolmp implements UserDao{
         User user = entityManager.find(User.class, id);
         entityManager.remove(user);
     }
+
+    @Override
+    public User getUserId(int id) {
+        return entityManager.find(User.class, id);
+    }
+
 }
