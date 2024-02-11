@@ -27,31 +27,25 @@ public class UserController {
 
     @GetMapping("/add") // форма для добавления нового пользователя
     public String addUserForm(@ModelAttribute("newUser") User user) {
-        return "newUser";
+        return "addUser";
     }
 
-    @PostMapping("/add") // добавление нового пользователя
+    @PostMapping("/addUser") // добавление нового пользователя
     public String addUser(@ModelAttribute("newUser") User user) {
         userService.addUser(user);
         return "redirect:/";
     }
 
-    @DeleteMapping("/delete") // удаление пользователя по id
+    @GetMapping("/edit")
+    public String editUserForm(@RequestParam("userId") int id, Model model) {
+        User user = userService.getUserId(id);
+        model.addAttribute("newUser", user);
+        return "addUser";
+    }
+
+    @GetMapping("/delete") // удаление пользователя по id
     public String deleteUser(@RequestParam("userId") int id) {
         userService.deleteUser(id);
-        return "redirect:/";
-    }
-
-    @GetMapping("/edit")
-    public String editUserForm(@RequestParam("id") int id, Model model) {
-        User user = userService.getUserId(id);
-        model.addAttribute("user", user);
-        return "edit";
-    }
-
-    @PatchMapping("/edit")
-    public String editUser(@ModelAttribute("user") User user) {
-        userService.updateUser(user);
         return "redirect:/";
     }
 }

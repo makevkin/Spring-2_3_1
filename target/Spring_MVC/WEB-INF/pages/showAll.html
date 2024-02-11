@@ -8,22 +8,22 @@
 <body>
 
 <table>
-    <tr>
-        <th>Name</th>
+    <tr>  <!-- tr - строка в таблице -->
+        <th>Name</th>  <!-- шапка таблицы-->
         <th>age</th>
     </tr>
     <tr th:each="user : ${users}" >
-        <a th:href="@{/users/{id}(id=${user.getId()})}" th:text="${user.getName()}">user</a>
 
-        <td th:text="${user.name}">Name</td>
-        <td th:text="${user.age}">Age</td>
+        <td th:text="${user.name}"></td> <!--Ячейка в таблице -->
+        <td th:text="${user.age}"></td>
         <td>
-            <a th:href="'/edit?id='+${user.id}">Edit</a>
-            <a th:href="'/delete?id='+${user.id}">Delete</a>
+            <a th:href="'/edit?userId='+${user.id}">Edit</a>
+            <a th:href="'/delete?userId='+${user.id}">Delete</a>
         </td>
     </tr>
 
 </table>
+<br>
 <tr>
     <a href="/add">Create new user</a>
 </tr>
