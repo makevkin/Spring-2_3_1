@@ -8,9 +8,10 @@ import javax.persistence.PersistenceContext;
 import java.util.List;
 
 @Repository
-public class UserDaolmp implements UserDao{
+public class UserDaolmp implements UserDao {
     @PersistenceContext
     private EntityManager entityManager;
+
     @Override
     public List<User> getAllUsers() {
         return entityManager.createQuery("From User", User.class).getResultList();
@@ -31,5 +32,4 @@ public class UserDaolmp implements UserDao{
     public User getUserId(int id) {
         return entityManager.find(User.class, id);
     }
-
 }

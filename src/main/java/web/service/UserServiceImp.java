@@ -9,8 +9,8 @@ import web.model.User;
 import java.util.List;
 @Service
 public class UserServiceImp  implements UserService{
-
     private final UserDao userDao;
+
     @Autowired
     public UserServiceImp(UserDao userDao) {
         this.userDao = userDao;
@@ -21,12 +21,12 @@ public class UserServiceImp  implements UserService{
     public List<User> getAllUsers() {
         return userDao.getAllUsers();
     }
+
     @Override
     @Transactional
     public void addUser(User user) {
         userDao.addUser(user);
     }
-
 
     @Override
     @Transactional
@@ -39,5 +39,4 @@ public class UserServiceImp  implements UserService{
     public User getUserId(int id) {
         return userDao.getUserId(id);
     }
-
 }

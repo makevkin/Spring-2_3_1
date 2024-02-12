@@ -25,9 +25,8 @@ import java.util.Properties;
 @ComponentScan(value = "web")
 @EnableWebMvc
 public class AppConfig {
-
-
    private Environment env;
+
    @Autowired
    public AppConfig(Environment env) {
       this.env = env;
@@ -52,6 +51,7 @@ public class AppConfig {
       em.setJpaProperties(addProperties());
       return em;
    }
+
    Properties addProperties() {
       Properties properties = new Properties();
       properties.setProperty("hibernate.hbm2ddl.auto", "update");
@@ -69,8 +69,9 @@ public class AppConfig {
       transactionManager.setEntityManagerFactory(entityManagerFactory().getObject());
       return transactionManager;
    }
+
    @Bean
-   public PersistenceExceptionTranslationPostProcessor exceptionTranslation(){
+   public PersistenceExceptionTranslationPostProcessor exceptionTranslation() {
       return new PersistenceExceptionTranslationPostProcessor();
    }
 }

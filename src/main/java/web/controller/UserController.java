@@ -2,11 +2,13 @@ package web.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import web.dao.UserDao;
 import web.model.User;
 import web.service.UserService;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @Controller
@@ -31,9 +33,13 @@ public class UserController {
     }
 
     @PostMapping("/addUser") // добавление нового пользователя
-    public String addUser(@ModelAttribute("newUser") User user) {
-        userService.addUser(user);
-        return "redirect:/";
+    public String addUser(@ModelAttribute("newUser") @Valid User user, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "addUser";
+        } else {
+            userService.addUser(user);
+            return "redirect:/";
+        }
     }
 
     @GetMapping("/edit")
