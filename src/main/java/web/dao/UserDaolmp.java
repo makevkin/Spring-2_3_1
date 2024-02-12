@@ -11,19 +11,13 @@ import java.util.List;
 public class UserDaolmp implements UserDao{
     @PersistenceContext
     private EntityManager entityManager;
-
-    @Override
-    public void addUser(User user) {
-        entityManager.persist(user);
-    }
-
     @Override
     public List<User> getAllUsers() {
         return entityManager.createQuery("From User", User.class).getResultList();
     }
 
     @Override
-    public void updateUser(User user) {
+    public void addUser(User user) {
         entityManager.merge(user);
     }
 

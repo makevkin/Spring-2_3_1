@@ -6,8 +6,6 @@ public interface UserService {
     void addUser(User user);
     List<User> getAllUsers();
 
-    void updateUser(User user);
-
     void deleteUser(int id);
 
     User getUserId(int id);
