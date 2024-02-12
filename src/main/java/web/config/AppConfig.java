@@ -47,19 +47,20 @@ public class AppConfig {
       LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
       em.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
       em.setDataSource(getDataSource());
-      em.setPackagesToScan("web.model");
+      em.setPackagesToScan(env.getRequiredProperty("web.model"));
       em.setJpaProperties(addProperties());
       return em;
    }
 
    Properties addProperties() {
       Properties properties = new Properties();
-      properties.setProperty("hibernate.hbm2ddl.auto", "update");
-      properties.setProperty("hibernate.dialect", "org.hibernate.dialect.MySQL5Dialect");
-      properties.setProperty("hibernate.shoe_sql", "true");
-      properties.setProperty("hibernate.connection.characterEncoding", "utf8");
-      properties.setProperty("hibernate.connection.CharSet", "utf8");
-      properties.setProperty("hibernate.connection.useUnicode", "true");
+      properties.put("hibernate.hbm2ddl.auto", env.getRequiredProperty("hibernate.hbm2ddl.auto"));
+      properties.put("hibernate.dialect", env.getRequiredProperty("hibernate.dialect"));
+      properties.put("hibernate.show_sql", env.getRequiredProperty("hibernate.show_sql"));
+      properties.put("hibernate.format_sql", env.getRequiredProperty("hibernate.format_sql"));
+      properties.put("hibernate.connection.characterEncoding", env.getRequiredProperty("hibernate.connection.characterEncoding"));
+      properties.put("hibernate.connection.CharSet", env.getRequiredProperty("hibernate.connection.CharSet"));
+      properties.put("hibernate.connection.useUnicode", env.getRequiredProperty("hibernate.connection.useUnicode"));
       return properties;
    }
 
